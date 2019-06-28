@@ -1,0 +1,16 @@
+- if params[:action] == 'search'
+  = bootstrap_flash
+- if @stock
+  #search_results
+    %b Symbol:
+    = @stock.ticker
+    %b Name
+    = @stock.name
+    %b Price:
+    = @stock.last_price
+
+  - if current_user.can_add_stock?(@stock.ticker)
+    = link_to 'Add Stock', user_stocks_path(ticker: @stock.ticker),method: :post, class: 'btn btn-primary btn-sm'
+  - else
+    - current_user.stock_add_errors(@stock.ticker).each do |s|
+      %small.text-muted= s

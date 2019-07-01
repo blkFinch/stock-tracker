@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :user_stocks
   has_many :stocks, through: :user_stocks
 
+  has_many :friendships
+  has_many :friends, through: :friendships
+
   def stock_already_added?(ticker)
     stock = Stock.find_by_ticker(ticker)
     return false unless stock
@@ -30,5 +33,10 @@ class User < ApplicationRecord
       s << "You are already tracking that stock"
     end
     s
+  end
+
+  def full_name
+    return "#{self.first_name}  #{self.last_name}".strip if (first_name || last_name)
+    "anonymous"
   end
 end

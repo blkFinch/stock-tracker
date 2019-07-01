@@ -1,0 +1,5 @@
+%h3.h3= @user.full_name
+%small.text-muted= @user.email
+
+- if @user.stocks.size > 0
+  = render 'stocks/list'

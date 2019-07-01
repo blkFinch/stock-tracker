@@ -1,0 +1,24 @@
+- if params[:action] == 'search'
+  = bootstrap_flash
+
+- if @users
+  %table.table
+    %thead
+      %tr
+        %th{:scope => "col"} Name
+        %th{:scope => "col"} Email
+        %th{:scope => "col"} Actions
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.full_name
+          %td= user.email
+          %td
+            = link_to 'profile', user_path(user), class: "btn btn-xs btn-info"
+            - if current_user.not_friends_with?(user)
+              = link_to 'add friend', add_friend_path(user: current_user, friend: user), method: :post, class: "btn btn-xs btn-success"
+  -# - if current_user.can_add_stock?(@stock.ticker)
+  -#   = link_to 'Add Stock', user_stocks_path(ticker: @stock.ticker),method: :post, class: 'btn btn-primary btn-sm'
+  -# - else
+  -#   - current_user.stock_add_errors(@stock.ticker).each do |s|
+  -#     %small.text-muted= s

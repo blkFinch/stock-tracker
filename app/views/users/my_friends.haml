@@ -1,1 +1,26 @@
-%h1.h1 MY FRIENDS
+= render 'friends/lookup'
+
+- if @friendships.size > 0
+
+  .row
+    %h3.h3 My Friends
+  .row
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{:scope => "col"} Name
+          %th{:scope => "col"} Email
+          %th{:scope => "col"} Actions
+      %tbody
+        - @friendships.each do |friend|
+          %tr
+            %td= friend.full_name
+            %td= friend.email
+            %td
+              = link_to 'view profile', user_path(friend), class: 'badge badge-info'
+              = link_to 'remove friend', friendship_path(friend), method: :delete, class: 'badge badge-info'
+
+- else
+  .row.col-12
+    %p.lead
+      You don't have any friends yet

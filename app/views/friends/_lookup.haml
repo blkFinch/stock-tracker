@@ -1,0 +1,12 @@
+#friend_lookup
+  = form_tag search_friends_path, remote: true, method: :get, id: 'friend_lookup_form' do
+    .form-group.row.text-center.col-12
+      .col-md-10
+        = text_field_tag :search_param, params[:search_param], placeholder: "Look up a friend", class:"form-control search-box"
+      .col-md-2
+        = button_tag(type: :submit, class: "btn btn-success") do
+          %i.fa.fa-search
+          Search
+.row
+  #render_results
+    = render "friends/result"
